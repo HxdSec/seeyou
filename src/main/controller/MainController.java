@@ -143,13 +143,14 @@ public class MainController implements Initializable {
 
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(stage);
-        String filepath = file.getPath();
-        List<String> list = FileUtil.Read(filepath);
-        for (String url: list ) {
-            url = url + "seeyon/thirdpartyController.do.css/..;/ajax.do";
-            dataList.add(new TaskModel(list.indexOf(url),url,"未检测",""));
+        if (file != null){
+            String filepath = file.getPath();
+            List<String> list = FileUtil.Read(filepath);
+            for (String url: list ) {
+                url = url + "seeyon/thirdpartyController.do.css/..;/ajax.do";
+                dataList.add(new TaskModel(list.indexOf(url),url,"未检测",""));
+            }
         }
-
     }
 
     @FXML

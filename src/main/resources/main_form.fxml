@@ -16,10 +16,10 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="14.0" layoutY="28.0" text="目标地址" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="28.0" />
-                        <TextField fx:id="txt_target" layoutX="72.0" layoutY="20.0" prefHeight="30.0" prefWidth="594.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="20.0" />
-                        <Button fx:id="btn_check" layoutX="668.0" layoutY="26.0" mnemonicParsing="false" onAction="#btn_check_click" prefHeight="30.0" prefWidth="78.0" text="检测" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0" />
-                        <TextArea fx:id="area_result" layoutX="14.0" layoutY="69.0" prefHeight="200.0" prefWidth="743.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="70.0" />
+                        <Label layoutX="14.0" layoutY="15.0" text="目标地址" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0" />
+                        <TextField fx:id="txt_target" layoutX="72.0" layoutY="20.0" prefHeight="25.0" prefWidth="608.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="88.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="btn_check" layoutX="668.0" layoutY="26.0" mnemonicParsing="false" onAction="#btn_check_click" prefHeight="25.0" prefWidth="70.0" text="检测" AnchorPane.leftAnchor="686.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <TextArea fx:id="area_result" layoutX="14.0" layoutY="69.0" prefHeight="200.0" prefWidth="743.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -27,10 +27,11 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="table_list" layoutX="13.0" layoutY="52.0" prefHeight="263.0" prefWidth="740.0" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
-                        <Button fx:id="btn_import" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_import_click" prefHeight="30.0" prefWidth="78.0" text="导入" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                        <Button fx:id="btn_check_list" layoutX="99.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_check_list_click" prefHeight="30.0" prefWidth="78.0" text="检测" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="10.0" />
-                        <TextArea fx:id="area_info" layoutX="14.0" layoutY="326.0" prefHeight="188.0" prefWidth="740.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <TableView fx:id="table_list" layoutX="13.0" layoutY="52.0" prefHeight="263.0" prefWidth="740.0" AnchorPane.bottomAnchor="195.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0" />
+                        <Button fx:id="btn_import" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btn_import_click" prefHeight="25.0" prefWidth="70.0" text="导入目标" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="btn_check_list" layoutX="674.0" layoutY="10.0" mnemonicParsing="false" onAction="#btn_check_list_click" prefHeight="25.0" prefWidth="70.0" text="开始" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0" />
+                        <TextArea fx:id="area_info" layoutX="14.0" layoutY="326.0" prefHeight="188.0" prefWidth="740.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <CheckBox layoutX="572.0" layoutY="15.0" mnemonicParsing="false" text="检测同时利用" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="15.0" />
                      </children></AnchorPane>
             </content>
           </Tab>
