@@ -2,6 +2,7 @@ package main.controller;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -12,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import main.common.VulnerableDetectTask;
@@ -40,36 +42,9 @@ public class MainController implements Initializable {
         return t ;
     });
 
-    public static class FileProcessingTask extends Task<Integer> {
-
-        private  Integer id = 0 ;
-
-        public FileProcessingTask(Integer id) {
-            this.id = id ;
-        }
-
-        @Override
-        public Integer call() throws Exception {
 
 
-            // dummy processing, in real life read file and do something with it:
-            int delay = RNG.nextInt(50) + 50 ;
-            for (int i = 0 ; i < 100; i++) {
-                Thread.sleep(delay);
-                updateProgress(i, 100);
-
-                // check for cancellation and bail if cancelled:
-                if (isCancelled()) {
-                    updateProgress(0, 100);
-                    break ;
-                }
-            }
-
-            return delay ;
-        }
-    }
-
-    private ObservableList<ItemModel> dataList = FXCollections.observableArrayList();
+    private ObservableList<TaskModel> dataList = FXCollections.observableArrayList();
 
     @FXML
     private AnchorPane root;
@@ -100,7 +75,7 @@ public class MainController implements Initializable {
 
 
     @FXML
-    private TableView<ItemModel> table_list;
+    private TableView<TaskModel> table_list;
 
 
     @Override
@@ -112,12 +87,38 @@ public class MainController implements Initializable {
         TableColumn urlCol = new TableColumn("URL");
         urlCol.prefWidthProperty().bind(table_list.widthProperty().multiply(0.8));
 
-        urlCol.setCellValueFactory(new PropertyValueFactory<ItemModel, String>("url"));
+        urlCol.setCellValueFactory(new PropertyValueFactory<TaskModel, String>("url"));
 
         TableColumn statusCol = new TableColumn("状态");
         statusCol.prefWidthProperty().bind(table_list.widthProperty().multiply(0.15));
-        statusCol.setCellValueFactory(new PropertyValueFactory<ItemModel, String>("status"));
+        statusCol.setCellValueFactory(new PropertyValueFactory<TaskModel, String>("status"));
         statusCol.setStyle("-fx-alignment:CENTER");
+        statusCol.setCellFactory(column -> new TableCell<TaskModel, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (item == null || empty) {
+                    setText(null);
+                } else {
+                    setText(item);
+                    if (item.contains("存在漏洞")){
+                        this.setTextFill(Color.RED);
+                    }else{
+                        this.setTextFill(Color.BLACK);
+                    }
+                }
+            }
+        });
+        table_list.getSelectionModel().selectedItemProperty().addListener(
+                new ChangeListener<TaskModel>() {
+                    @Override
+                    public void changed(
+                            ObservableValue<? extends TaskModel> observableValue,
+                            TaskModel oldItem, TaskModel newItem) {
+                            area_info.setText(newItem.getResult());
+                    }
+                });
 
         table_list.getColumns().addAll(urlCol, statusCol);
         table_list.setItems(dataList);
@@ -132,26 +133,6 @@ public class MainController implements Initializable {
     @FXML
     void btn_check_click(ActionEvent event) {
 
-        //String response = HttpRequest.get("http://www.baidu.com").body();
-        ArrayList<Integer> files = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            files.add(i);
-        }
-
-        files.stream().map(FileProcessingTask::new).peek(exec::execute).forEach(task-> {
-
-            task.progressProperty().addListener(observable -> {
-                area_result.appendText(task.id.toString() + ":" + task.getProgress() + "\n");
-            });
-
-
-            task.setOnSucceeded(wse -> {
-                area_result.appendText(task.id.toString() + ":" + task.getValue() + "\n");
-            });
-                }
-
-         );
-
     }
 
     @FXML
@@ -165,7 +146,8 @@ public class MainController implements Initializable {
         String filepath = file.getPath();
         List<String> list = FileUtil.Read(filepath);
         for (String url: list ) {
-            dataList.add(new ItemModel(url,"未检测"));
+            url = url + "seeyon/thirdpartyController.do.css/..;/ajax.do";
+            dataList.add(new TaskModel(list.indexOf(url),url,"未检测",""));
         }
 
     }
@@ -178,6 +160,11 @@ public class MainController implements Initializable {
                 }).map(VulnerableDetectTask::new).peek(exec::execute).forEach(task-> {
                     task.setOnSucceeded(t -> {
                          TaskModel model = task.getValue();
+                         dataList.set(model.getId(),model);
+
+
+                    });
+                    task.progressProperty().addListener(observable -> {
 
                     });
                 }

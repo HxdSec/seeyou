@@ -17,15 +17,13 @@ public  class VulnerableDetectTask extends Task<TaskModel> {
 
         try {
             HttpRequest request =  HttpRequest.get(model.getUrl());
-            if (request.ok()) {
-               String result = request.body();
-               model.setResult(result);
-               if (result.contains("java.lang.NullPointerException:null")){
-                   model.setStatus("存在漏洞");
-                }else{
-                   model.setStatus("检测结束");
-               }
+            String result = request.body();
+            if (result.contains("java.lang.NullPointerException:null")){
+                model.setStatus("存在漏洞");
+            }else{
+                model.setStatus("检测结束");
             }
+            model.setResult(result);
             return model;
         } catch (HttpRequest.HttpRequestException exception) {
             model.setStatus("发生错误");
