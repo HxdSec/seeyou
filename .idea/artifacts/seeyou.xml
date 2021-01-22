@@ -15,6 +15,7 @@
       <element id="archive" name="seeyou.jar">
         <element id="module-output" name="seeyou" />
       </element>
+      <element id="library" level="project" name="Maven: com.github.kevinsawicki:http-request:6.0" />
     </root>
   </artifact>
 </component>
