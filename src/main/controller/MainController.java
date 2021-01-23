@@ -33,7 +33,6 @@ import java.util.concurrent.Executors;
 
 public class MainController implements Initializable {
 
-    private static final Random RNG = new Random();
     private static final int MAX_THREADS = 4 ;
 
     private final Executor exec = Executors.newFixedThreadPool(MAX_THREADS, runnable -> {
@@ -43,14 +42,12 @@ public class MainController implements Initializable {
     });
 
 
-
     private ObservableList<TaskModel> dataList = FXCollections.observableArrayList();
-
-    @FXML
-    private AnchorPane root;
 
     private Stage stage;
 
+    @FXML
+    private AnchorPane root;
 
 
     @FXML
@@ -61,7 +58,6 @@ public class MainController implements Initializable {
 
     @FXML
     private Button btn_check;
-
 
 
     @FXML
@@ -134,6 +130,8 @@ public class MainController implements Initializable {
     void btn_check_click(ActionEvent event) {
 
     }
+
+
 
     @FXML
     void btn_import_click(ActionEvent event) {
